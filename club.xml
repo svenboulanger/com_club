@@ -4,58 +4,40 @@
 	<!-- Component properties -->
 	<name>COM_CLUB</name>
 	<author>Sven Boulanger</author>
-	<version>1.0.1</version>
 	<authorEmail>sven@bamadi.be</authorEmail>
+	<version>1.0.1</version>
 	<description>COM_CLUB_DESCRIPTION</description>
-	
-	<!-- Database installation -->
-	<install>
-		<sql>
-			<file driver="mysql" charset="utf8">admin/sql/install.mysql.utf8.sql</file> 
-		</sql>
-	</install>
-	<uninstall>
-		<sql>
-			<file driver="mysql" charset="utf8">admin/sql/uninstall.mysql.utf8.sql</file>
-		</sql>
-	</uninstall>
-	<update>
-		<schemas>
-			<schemapath type="mysql">admin/sql/updates</schemapath>
-		</schemas>
-	</update>
-	
+
 	<!-- Site Main File Copy section -->
 	<files folder="site">
 		<filename>index.html</filename>
 		<filename>club.php</filename>
-		<filename>controller.php</filename>
+		<filename>controller.php<filename>
+		<folder>controllers</folder>
 		<folder>models</folder>
 		<folder>tables</folder>
 		<folder>views</folder>
-		<folder>controllers</folder>
 	</files>
 	
 	<!-- Handle languages -->
 	<languages folder="admin/language">
 		<language tag="en-GB">en-GB/en-GB.com_club.ini</language>
 	</languages>
-
-	<!-- Administration -->
+	
 	<administration>
 		<menu link='index.php?option=com_club&view=members'>COM_CLUB_MENU</menu>
 		<files folder="admin">
-			<filename>config.xml</filename>
-			<filename>access.xml</filename>
 			<filename>index.html</filename>
+			<filename>access.xml</filename>
 			<filename>club.php</filename>
+			<filename>config.xml</filename>
 			<filename>controller.php</filename>
-			<folder>views</folder>
-			<folder>tables</folder>
-			<folder>sql</folder>
-			<folder>models</folder>
-			<folder>helpers</folder>
 			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
 		</files>
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB/en-GB.com_club.ini</language>
