@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<fieldset name="filter">
+			<field
+				name="search"
+				type="text"
+				label="COM_CLUB_SEARCH"
+				hint="COM_CLUB_SEARCH"
+				class="js-stools-search-string"
+				default=""
+				onchange="this.form.submit()"
+			/>
+			
+			<field
+				name="splitter"
+				type="spacer"
+				hr="true"
+				label="States"
+			/>
+
+			<field
+				name="block"
+				type="list"
+				label="COM_CLUB_BLOCK_LABEL"
+				default=""
+				description="COM_CLUB_BLOCK_DESC"
+				onchange="this.form.submit();"
+			>
+				<option value="">COM_CLUB_SEARCH_SELECT_STATE</option>
+				<option value="0">COM_CLUB_SEARCH_ALLOWED</option>
+				<option value="1">COM_CLUB_SEARCH_BLOCKED</option>
+			</field>
+		</fieldset>
+	</fields>
+
+	<fields name="list">
+		<fieldset name="list">
+			<field
+				name="limit"
+				type="limitbox"
+				class="input-mini"
+				default="25"
+				label="COM_CONTENT_LIST_LIMIT"
+				description="COM_CONTENT_LIST_LIMIT_DESC"
+				onchange="this.form.submit();"
+			/>
+			
+			<field
+				name="fullordering"
+				type="hidden" />
+		</fieldset>
+	</fields>
+	
+	<fields name="info">
+		<fieldset name="info">
+			<field
+				name="info"
+				type="hidden" />
+		
+			<field
+				name="fields"
+				type="customfield"
+				types="text;calendar;list"
+				label="COM_CLUB_INFO_LABEL"
+				hint="COM_CLUB_INFO_LABEL"
+				context="com_club.member"
+				description="COM_CLUB_INFO_DESC"
+				multiple="true" />
+		</fieldset>
+	</fields>
+</form>

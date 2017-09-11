@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields>
+		
+		<fieldset
+			name="memberdetails"
+			label="COM_CLUB_MEMBER_DETAILS">
+			<field name="id" type="hidden" />
+			
+			<field
+				name="name"
+				type="text"
+				label="COM_CLUB_MEMBER_NAME"
+				description="COM_CLUB_MEMBER_NAME_DESC"
+
+				class="form-control"
+				required="true"
+				default="" />
+
+			<field
+				name="block"
+				type="list"
+				default="0"
+				label="COM_CLUB_MEMBER_STATUS"
+				description="COM_CLUB_MEMBER_STATUS_DESC"
+				filter="intval">
+				<option value="0">COM_CLUB_MEMBER_ALLOWED</option>
+				<option value="1">COM_CLUB_MEMBER_BLOCKED</option>
+			</field>
+			
+			<field
+				name="email"
+				type="email"
+				default=""
+				label="COM_CLUB_MEMBER_EMAIL"
+				description="COM_CLUB_MEMBER_EMAIL_DESC"
+				size="40"
+				maxlength="254" />
+
+		</fieldset>
+	</fields>
+</form>

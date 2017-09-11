@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+
+	<fields name="params" addfieldpath="administrator/components/com_club/models/fields/">
+		<fieldset 
+			name="params"
+			label="COM_CLUB_PARAMS_LABEL"
+			description="COM_CLUB_PARAMS_DESC">
+			
+			<field
+				name="nameformat"
+				type="list"
+				label="COM_CLUB_PARAMS_NAMEFORMAT_LABEL"
+				description="COM_CLUB_PARAMS_NAMEFORMAT_DESC"
+				class="btn-group btn-group-yesno">
+				<option value="0">Free</option>
+				<option value="1">Lastname Firstname</option>
+			</field>
+			
+			<field
+				name="firstname"
+				type="customfield"
+				types="text"
+				context="com_club.member"
+				label="COM_CLUB_PARAMS_FIRSTNAME_LABEL"
+				description="COM_CLUB_PARAMS_FIRSTNAME_DESC" />
+				
+			<field
+				name="lastname"
+				type="customfield"
+				types="text"
+				context="com_club.member"
+				label="COM_CLUB_PARAMS_LASTNAME_LABEL"
+				description="COM_CLUB_PARAMS_LASTNAME_DESC" />
+				
+			<field
+				name="owner"
+				type="customfield"
+				types="user"
+				context="com_club.member"
+				label="COM_CLUB_PARAMS_OWNER_LABEL"
+				description="COM_CLUB_PARAMS_OWNER_DESC" />
+		</fieldset>
+	</fields>
+
+	<fields name="permissions">
+		<fieldset
+			name="permissions"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			description="JCONFIG_PERMISSIONS_DESC">
+		
+			<field
+				name="rules"
+				type="rules"
+				label="JCONFIG_PERMISSIONS_LABEL"
+				class="inputbox"
+				validate="rules"
+				filter="rules"
+				component="com_badminton"
+				section="component" />
+		</fieldset>
+	</fields>
+</config>

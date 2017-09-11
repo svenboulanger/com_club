@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields>
+		
+		<fieldset
+			name="importoptions"
+			label="COM_CLUB_IMPORT_OPTIONS">
+			
+			<field
+				name="file"
+				type="file"
+				accept=".csv"
+				label="COM_CLUB_IMPORT_FILE"
+				description="COM_CLUB_IMPORT_FILE_DESC" />
+				
+			<field
+				name="add"
+				type="list"
+				default="0"
+				label="COM_CLUB_IMPORT_ADD"
+				description="COM_CLUB_IMPORT_ADD_DESC">
+				<option value="0">COM_CLUB_IMPORT_ADD_ONLY</option>
+				<option value="1">COM_CLUB_IMPORT_UPDATE_ONLY</option>
+				<option value="2">COM_CLUB_IMPORT_ADDUPDATE</option>
+			</field>
+			
+			<field
+				name="link"
+				type="list"
+				default="0"
+				label="COM_CLUB_IMPORT_LINK"
+				description="COM_CLUB_IMPORT_LINK_DESC">
+				<option value="0">COM_CLUB_IMPORT_LINK_ID</option>
+				<option value="1">COM_CLUB_IMPORT_LINK_EMAIL</option>
+				<option value="2">COM_CLUB_IMPORT_LINK_NAME</option>
+			</field>
+		</fieldset>
+	</fields>
+</form>
