@@ -10,7 +10,7 @@
 		<folder></folder>
 		<infourl title="Club Manager">https://github.com/svenboulanger/com_club</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/svenboulanger/com_club/archive/master.zip</downloads>
+			<downloadurl type="full" format="zip">https://github.com/svenboulanger/com_club/archive/master.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>dev</tag>
