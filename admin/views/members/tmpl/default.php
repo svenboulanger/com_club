@@ -96,7 +96,7 @@ $listDirn = $this->state->get('list.direction', 'asc');
 						<?php foreach ($this->infoDisplay as $field) : ?>
 						<td>
 							<?php $var = "$field->name#value";
-							echo $row->$var; ?>
+							echo $this->renderCustomFieldValue($field, $row->id, $row->$var); ?>
 						</td>
 						<?php endforeach; ?>
 						<td>

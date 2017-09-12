@@ -115,4 +115,38 @@ class ClubViewMembers extends JViewLegacy
 		);
 		$document->addScriptDeclaration(implode('', $script));
 	}
+	
+	/**
+	 * Render a field
+	 */
+	protected function renderCustomFieldValue($field, $id, $rawvalue)
+	{
+		// Initialize
+		$item = (object) array('id' => $id);
+		$field->value = $rawvalue;
+		$field->rawvalue = $rawvalue;
+		$context = "com_club.member";
+		
+		// See administrator/components/com_fields/helpers/fields/fields.php line 190
+		JPluginHelper::importPlugin('fields');
+
+		$dispatcher = JEventDispatcher::getInstance();
+
+		// Event allow plugins to modfify the output of the field before it is prepared
+		$dispatcher->trigger('onCustomFieldsBeforePrepareField', array($context, $item, &$field));
+
+		// Gathering the value for the field
+		$value = $dispatcher->trigger('onCustomFieldsPrepareField', array($context, $item, &$field));
+
+		if (is_array($value))
+		{
+			$value = implode($value, ' ');
+		}
+
+		// Event allow plugins to modfify the output of the prepared field
+		$dispatcher->trigger('onCustomFieldsAfterPrepareField', array($context, $item, $field, &$value));
+
+		// Assign the value
+		return $value;
+	}
 }
