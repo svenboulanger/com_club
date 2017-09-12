@@ -24,6 +24,12 @@
 			<schemapath type="mysql">sql/updates</schemapath>
 		</schemas>
 	</update>
+	
+	<!-- Updateserver definition -->
+	<updateservers>
+		<!-- Note: No spaces or linebreaks allowed between the server tags -->
+		<server type="extension" priority="1" name="Club manager Update Site">https://raw.githubusercontent.com/svenboulanger/com_club/master/club-updates.xml</server>
+	</updateservers>
 
 	<!-- Site Main File Copy section -->
 	<files folder="site">
