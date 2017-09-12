@@ -6,7 +6,7 @@
 		<element>com_club</element>
 		<type>component</type>
 		<version>1.0.2</version>
-		<client>site</client>
+		<client>1</client>
 		<folder></folder>
 		<infourl title="Club Manager">https://github.com/svenboulanger/com_club</infourl>
 		<downloads>
