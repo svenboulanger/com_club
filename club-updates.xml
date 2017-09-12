@@ -3,7 +3,7 @@
 	<update>
 		<name>COM_CLUB</name>
 		<description>COM_CLUB_DESCRIPTION</description>
-		<element>com_club</element>
+		<element>club</element>
 		<type>component</type>
 		<version>1.0.1</version>
 		
