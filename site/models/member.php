@@ -47,6 +47,15 @@ class ClubModelMember extends JModelAdmin
 			}
 		}
 		
+		// Check if we can edit
+		$user = JFactory::getUser();
+		if (!$user->authorise('member.edit', 'com_club'))
+		{
+			$form->setFieldAttribute('name', 'disabled', 'true');
+			$form->setFieldAttribute('email', 'disabled', 'true');
+			$form->setFieldAttribute('block', 'disabled', 'true');
+		}
+		
 		return $form;
 	}
 	

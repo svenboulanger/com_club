@@ -175,30 +175,4 @@ class ClubModelMember extends JModelAdmin
 		
 		return parent::save($data);
 	}
-	
-	/**
-	 * Method to test whether a record can be deleted.
-	 *
-	 * @param   object  $record  A record object.
-	 *
-	 * @return  boolean  True if allowed to delete the record. Defaults to the permission for the component.
-	 */
-	protected function canDelete($record)
-	{
-		$user = JFactory::getUser();
-		return $user->authorise('member.delete', $this->option);
-	}
-	
-	/**
-	 * Method to test whether a record can be edited.
-	 *
-	 * @param   object  $record  A record object.
-	 *
-	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission for the component.
-	 */
-	protected function canEditState($record)
-	{
-		$user = JFactory::getUser();
-		return $user->authorise('member.edit.state', $this->option);
-	}
 }

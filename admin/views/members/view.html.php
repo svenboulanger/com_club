@@ -71,19 +71,19 @@ class ClubViewMembers extends JViewLegacy
 		JToolBarHelper::title($title);
 		
 		// Add items depending on authorization
-		if ($canDo->get('member.create', 'com_club'))
+		if ($canDo->get('core.create', 'com_club'))
 		{
 			JToolBarHelper::addNew('member.add');
 		}
-		if ($canDo->get('member.edit', 'com_club'))
+		if ($canDo->get('core.edit', 'com_club'))
 		{
 			JToolBarHelper::editList('member.edit');
 		}
-		if ($canDo->get('member.delete', 'com_club'))
+		if ($canDo->get('core.delete', 'com_club'))
 		{
 			JToolBarHelper::deleteList(JText::_('COM_CLUB_MEMBERS_DELETE_ASK'), 'members.delete');
 		}
-		if ($canDo->get('member.block', 'com_club'))
+		if ($canDo->get('core.edit.state', 'com_club'))
 		{
 			JToolBarHelper::custom('members.allow', 'ok', '', 'COM_CLUB_ALLOW', true);
 			JToolBarHelper::custom('members.block', 'not-ok', '', 'COM_CLUB_BLOCK', true);
