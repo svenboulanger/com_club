@@ -3,9 +3,10 @@
 	<update>
 		<name>COM_CLUB</name>
 		<description>COM_CLUB_DESCRIPTION</description>
-		<element>club</element>
+		<element>com_club</element>
 		<type>component</type>
 		<version>1.0.1</version>
+		<client>1</client>
 		
 		<infourl title="Information">https://github.com/svenboulanger/com_club</infourl>
 		<downloads>
