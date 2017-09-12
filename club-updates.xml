@@ -1,0 +1,19 @@
+<updates>
+	<update>
+		<name>COM_CLUB</name>
+		<description>COM_CLUB_DESCRIPTION</description>
+		<element>com_club</element>
+		<type>component</type>
+		<version>1.0.1.1</version>
+		
+		<infourl title="Information">https://github.com/svenboulanger/com_club</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/svenboulanger/com_club/archive/master.zip</downloads>
+		</downloads>
+		<tags>
+			<tag>dev</tag>
+		</tags>
+		
+		<targetplatform name="joomla" version="3.7" />
+	</update>
+</updates>

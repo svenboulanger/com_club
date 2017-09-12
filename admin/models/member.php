@@ -166,6 +166,13 @@ class ClubModelMember extends JModelAdmin
 			}
 		}
 
+		// Check name property
+		if (empty($data['name']))
+		{
+			$app->enqueueMessage(JText::_('COM_CLUB_NO_NAME'), 'error');
+			return false;
+		}
+		
 		return parent::save($data);
 	}
 	
