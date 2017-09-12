@@ -43,6 +43,10 @@
 		<folder>tables</folder>
 		<folder>views</folder>
 	</files>
+	
+	<languages folder="admin/language">
+		<language tag="en-GB">en-GB/en-GB.com_club.ini</language>
+	</languages>
 
 	<administration>
 		<!-- Administration section -->
@@ -62,5 +66,10 @@
 			<folder>tables</folder>
 			<folder>views</folder>
 		</files>
+		
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_club.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_club.sys.ini</language>
+		</languages>
 	</administration>
 </extension>
