@@ -4,6 +4,7 @@
 	<!-- Component properties -->
 	<name>COM_CLUB</name>
 	<author>Sven Boulanger</author>
+	<authorUrl>https://github.com/svenboulanger/com_club</authorUrl>
 	<creationDate>September 2017</creationDate>
 	<authorEmail>sven@bamadi.be</authorEmail>
 	<version>1.0.1</version>
@@ -32,7 +33,7 @@
 		<server type="extension" priority="1" name="Club manager Update Site">https://raw.githubusercontent.com/svenboulanger/com_club/master/club-updates.xml</server>
 	</updateservers>
 
-	<!-- Site Main File Copy section -->
+	<!-- Site Main File Copy Section -->
 	<files folder="site">
 		<filename>index.html</filename>
 		<filename>club.php</filename>
@@ -43,8 +44,11 @@
 		<folder>views</folder>
 	</files>
 
-	<!-- Administration section -->
 	<administration>
+		<!-- Administration section -->
+		<menu view="members">COM_CLUB_MENU</menu>
+
+		<!-- Administration Main File Copy Section -->
 		<files folder="admin">
 			<filename>index.html</filename>
 			<filename>access.xml</filename>
@@ -58,6 +62,5 @@
 			<folder>tables</folder>
 			<folder>views</folder>
 		</files>
-		<menu view="members">COM_CLUB_MENU</menu>
 	</administration>
 </extension>
