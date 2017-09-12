@@ -139,54 +139,71 @@ class ClubControllerMembers extends JControllerAdmin
 		foreach ($this->items as $item)
 		{
 			// Look up the item depending on the input
+			if ($options['link'] == 0)
+			{
+				// Make sure the ID is in here, else reset the id field
+				if (isset($item['id']))
+				{
+					$db = JFactory::getDbo();
+					$query = $db->getQuery(true)
+						->select('COUNT(*)')
+						->from('#__club_members')
+						->where($db->qn('id') . '=' . $db->q($item['id']));
+					if (!$db->setQuery($query)->getResult())
+						unset($item['id']);
+				}
+				else
+					$item['id'] = '';
+			}
 			if ($options['link'] == 1)
 			{
+				// Link the user by email
 				if (isset($item['email']))
 				{
 					// Use the email to find the ID
 					$db = JFactory::getDbo();
 					$query = $db->getQuery(true)
 						->select('id')
-						->from('#__com_club')
+						->from('#__club_members')
 						->where($db->qn('name') . '=' . $db->q($item['email']));
 					$item['id'] = $db->setQuery($query)->getResult();
 					$app->enqueueMessage('Linked to ' . print_r($item['id'], true));
 				}
 				else
-					continue;
+					unset($item['id']);
 			}
 			elseif ($options['link'] == 2)
 			{
+				// Link the user by name
 				if (isset($item['name']))
 				{
 					// Use the name to find the ID
 					$db = JFactory::getDbo();
 					$query = $db->getQuery(true)
 						->select('id')
-						->from('#__com_club')
+						->from('#__club_members')
 						->where($db->qn('name') . '=' . $db->q($item['name']));
 					$item['id'] = $db->setQuery($query)->getResult();
 				}
 				else
-					continue;
+					unset($item['id']);
 			}
 			
 			// Saving doesn't do anything without an ID...
 			if (empty($item['id']))
 			{
-				// Only update items
+				// Only update items, so skip adding items
 				if ($options['add'] == 1)
 					continue;
+				
+				// Make sure the id is set but empty
 				$item['id'] = '';
 			}
 			else
 			{
-				// Only create new members
+				// Only add items, so skip updating items
 				if ($options['add'] == 0)
 					continue;
-				
-				// Create a new member
-				$item['id'] = '';
 			}
 			
 			// Try saving the member
@@ -204,6 +221,10 @@ class ClubControllerMembers extends JControllerAdmin
 		{
 			$this->setMessage(JText::plural($this->text_prefix . '_N_ITEMS_ADDED', $count));
 			unlink($importfile);
+		}
+		else
+		{
+			$this->setMessage(JText::_('COM_CLUB_IMPORT_NO_MEMBERS'), 'error');
 		}
 		
 		// Link
