@@ -4,6 +4,7 @@
 	<!-- Component properties -->
 	<name>COM_CLUB</name>
 	<author>Sven Boulanger</author>
+	<creationDate>September 2017</creationDate>
 	<authorEmail>sven@bamadi.be</authorEmail>
 	<version>1.0.1</version>
 	<description>COM_CLUB_DESCRIPTION</description>
@@ -42,6 +43,7 @@
 		<folder>views</folder>
 	</files>
 
+	<!-- Administration section -->
 	<administration>
 		<files folder="admin">
 			<filename>index.html</filename>
