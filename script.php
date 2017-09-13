@@ -9,23 +9,22 @@ defined('_JEXEC') or die('Restricted access');
 class com_clubInstallerScript
 {
 	/**
-	 * This method is called when the component has been installed.
+	 * This method is called when the component has been uninstalled.
+	 *
+	 * It will remove any custom fields. These can potentially cause problems
+	 * when reinstalling the component.
 	 */
-	public function install($parent)
-	{
-		echo "Installed";
-	}
-	
 	public function uninstall($parent)
 	{
 		// Initialize
 		$db = JFactory::getDbo();
+		$context = 'com_club.member';
 		
 		// Get all fields associated with the context com_club.member
 		$query = $db->getQuery(true)
 			->select('id')
 			->from($db->qn('#__fields'))
-			->where($db->qn('context') . '=' . $db->q('com_club.member'));
+			->where($db->qn('context') . '=' . $db->q($context));
 		$result = $db->setQuery($query)->loadObjectList();
 		$list = array();
 		foreach ($result as $key => $value)
@@ -60,7 +59,7 @@ class com_clubInstallerScript
 		// Remove all field groups associated to the context com_club.member
 		$query = $db->getQuery(true)
 			->delete($db->qn('#__fields_groups'))
-			->where($db->qn('context') . '=' . $db->q('com_club.member'));
+			->where($db->qn('context') . '=' . $db->q($context));
 		if ($db->setQuery($query)->execute())
 			echo '<p>' . JText::_('COM_CLUB_REMOVED_FIELDGROUPS_SUCCESS') . '</p>';
 		else
