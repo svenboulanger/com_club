@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.7.0" method="upgrade">
+
+	<!-- Component properties -->
+	<name>COM_CLUB</name>
+	<author>Sven Boulanger</author>
+	<authorUrl>https://github.com/svenboulanger/com_club</authorUrl>
+	<creationDate>September 2017</creationDate>
+	<authorEmail>sven@bamadi.be</authorEmail>
+	<version>1.1.0</version>
+	<description>COM_CLUB_DESCRIPTION</description>
+	
+	<!-- Script -->
+	<scriptfile>script.php</scriptfile>
+	
+	<!-- Database installation -->
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file> 
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates</schemapath>
+		</schemas>
+	</update>
+	
+	<!-- Updateserver definition -->
+	<updateservers>
+		<!-- Note: No spaces or linebreaks allowed between the server tags -->
+		<server type="extension" name="Club manager Update Site">https://raw.githubusercontent.com/svenboulanger/com_club/master/club-updates.xml</server>
+	</updateservers>
+
+	<!-- Site Main File Copy Section -->
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>club.php</filename>
+		<filename>controller.php</filename>
+		<folder>controllers</folder>
+		<folder>models</folder>
+		<folder>tables</folder>
+		<folder>views</folder>
+	</files>
+	
+	<languages folder="admin/language">
+		<language tag="en-GB">en-GB/en-GB.com_club.ini</language>
+	</languages>
+
+	<administration>
+		<!-- Administration section -->
+		<menu view="members">COM_CLUB_MENU</menu>
+
+		<!-- Administration Main File Copy Section -->
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>access.xml</filename>
+			<filename>club.php</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+		
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_club.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_club.sys.ini</language>
+		</languages>
+	</administration>
+</extension>
