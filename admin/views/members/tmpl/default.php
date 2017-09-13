@@ -114,6 +114,9 @@ $listDirn = $this->state->get('list.direction', 'asc');
 					<?= $field->input ?>
 			<?php endforeach; ?>
 				<div class="btn-wrapper">
+					<button type="button" class="btn hasTooktip js-info-btn-apply" title="<?php echo JHtml::_('tooltipText', 'JSEARCH_FILTER'); ?>">
+						<?php echo JText::_('JSEARCH_FILTER'); ?>
+					</button>
 					<button type="button" class="btn hasTooltip js-info-btn-clear" title="<?php echo JHtml::_('tooltipText', 'JSEARCH_FILTER_CLEAR'); ?>">
 						<?php echo JText::_('JSEARCH_FILTER_CLEAR');?>
 					</button>

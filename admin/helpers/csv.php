@@ -80,7 +80,7 @@ class CsvHelper
 			$app->enqueueMessage(JText::_('COM_CLUB_IMPORT_UNEXPECTED_END'), 'error');
 			return false;
 		}
-		elseif (preg_match('/^sep\=(.)$/i', trim($line), $matches))
+		elseif (preg_match('/^[^ -~]*sep\s*\=\s*(.)$/i', trim($line), $matches))
 		{
 			$delimiter = $matches[1];
 			$index++;

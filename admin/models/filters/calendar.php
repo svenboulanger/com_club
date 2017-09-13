@@ -78,13 +78,13 @@ class ClubMembersFilterCalendar extends ClubMembersFilter
 		$xml = clone $orig;
 		$xml['name'] .= '.after';
 		$xml['hint'] = JText::sprintf('COM_CLUB_CALENDAR_AFTER', $field->title);
-		$xml['onchange'] = 'this.form.submit();';
+		// $xml['onchange'] = 'this.form.submit();';
 		$form->setField($xml, 'filter', true, 'filter');
 		
 		$xml = clone $orig;
 		$xml['name'] .= '.before';
 		$xml['hint'] = JText::sprintf('COM_CLUB_CALENDAR_BEFORE', $field->title);
-		$xml['onchange'] = 'this.form.submit();';
+		// $xml['onchange'] = 'this.form.submit();';
 		$form->setField($xml, 'filter', true, 'filter');
 	}
 }

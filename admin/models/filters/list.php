@@ -67,7 +67,7 @@ class ClubMembersFilterList extends ClubMembersFilter
 		$orig = $form->getFieldXml($field->getAttribute('name'), 'com_fields');
 		
 		$nxml = clone $orig;
-		$nxml['onchange'] = 'this.form.submit();';
+		// $nxml['onchange'] = 'this.form.submit();';
 		// $nxml['multiple'] = 'false';
 		$form->setField($nxml, 'filter', true, 'filter');
 		

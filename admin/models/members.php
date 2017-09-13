@@ -81,7 +81,6 @@ class ClubModelMembers extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		
 		// Get database query to build up the list
 		$app = JFactory::getApplication();
 		$user = JFactory::getUser();
@@ -160,7 +159,6 @@ class ClubModelMembers extends JModelList
 		
 		return $query;
 	}
-	
 	
 	/**
 	 * Construct a filter form

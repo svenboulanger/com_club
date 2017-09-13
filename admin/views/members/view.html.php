@@ -105,8 +105,9 @@ class ClubViewMembers extends JViewLegacy
 		// Add the script for clearing out all info fields
 		$script = array(
 			"jQuery(document).ready(function(){",
-			"jQuery('[type=radio][id^=filter]').click(function(){this.form.submit();});",
-			"jQuery('[name^=\"info[fields]\"]').change(function(){this.form.submit();});",
+			// "jQuery('[type=radio][id^=filter]').click(function(){this.form.submit();});",
+			// "jQuery('[name^=\"info[fields]\"]').change(function(){this.form.submit();});",
+			"jQuery('.js-info-btn-apply').click(function(){this.form.submit();});",
 			"jQuery('.js-info-btn-clear').click(function(){",
 			"jQuery('[name^=info] option:selected').attr('selected', false);",
 			"this.form.submit();",

@@ -158,16 +158,23 @@ class ClubControllerMembers extends JControllerAdmin
 			if ($options['link'] == 1)
 			{
 				// Link the user by email
-				if (isset($item['email']))
+				if (!empty($item['email']))
 				{
 					// Use the email to find the ID
 					$db = JFactory::getDbo();
 					$query = $db->getQuery(true)
 						->select('id')
 						->from('#__club_members')
-						->where($db->qn('name') . '=' . $db->q($item['email']));
-					$item['id'] = $db->setQuery($query)->getResult();
-					$app->enqueueMessage('Linked to ' . print_r($item['id'], true));
+						->where($db->qn('email') . '=' . $db->q($item['email']));
+					$id = $db->setQuery($query)->loadResult();
+					if ($id)
+					{
+						$item['id'] = $id;
+					}
+					else
+					{
+						unset($item['id']);
+					}
 				}
 				else
 					unset($item['id']);
@@ -175,7 +182,7 @@ class ClubControllerMembers extends JControllerAdmin
 			elseif ($options['link'] == 2)
 			{
 				// Link the user by name
-				if (isset($item['name']))
+				if (!empty($item['name']))
 				{
 					// Use the name to find the ID
 					$db = JFactory::getDbo();
@@ -183,7 +190,15 @@ class ClubControllerMembers extends JControllerAdmin
 						->select('id')
 						->from('#__club_members')
 						->where($db->qn('name') . '=' . $db->q($item['name']));
-					$item['id'] = $db->setQuery($query)->getResult();
+					$id = $db->setQuery($query)->loadResult();
+					if ($id)
+					{
+						$item['id'] = $id;
+					}
+					else
+					{
+						unset($item['id']);
+					}
 				}
 				else
 					unset($item['id']);
