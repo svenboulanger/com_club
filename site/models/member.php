@@ -1,9 +1,6 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php');
-JLoader::register('ClubHelper', JPATH_ADMINISTRATOR . '/components/com_club/helpers/club.php');
-
 class ClubModelMember extends JModelAdmin
 {
 	/**
@@ -49,7 +46,7 @@ class ClubModelMember extends JModelAdmin
 		
 		// Check if we can edit
 		$user = JFactory::getUser();
-		if (!$user->authorise('member.edit', 'com_club'))
+		if (!$user->authorise('core.edit', 'com_club'))
 		{
 			$form->setFieldAttribute('name', 'disabled', 'true');
 			$form->setFieldAttribute('email', 'disabled', 'true');
@@ -70,73 +67,9 @@ class ClubModelMember extends JModelAdmin
 		if (empty($data))
 			$data = $this->getItem();
 
-		// Remember, the custom fields are only added afterwards!
 		return $data; 
 	}
 
-	/**
-	 * Block a club member
-	 *
-	 * @param array		&$pks	An array of primary keys
-	 * @param integer	$value	The value of the block state
-	 *
-	 * @return boolean			True on success.
-	 */
-	public function block(&$pks, $value = 1)
-	{
-		// Initialize
-		$dispatcher = JEventDispatcher::getInstance();
-		$table = $this->getTable();
-		$pks = (array) $pks;
-		$app = JFactory::getApplication();
-		
-		// Include the plugins for the change of state event
-		JPluginHelper::importPlugin($this->events_map['change_state']);
-		
-		// Access checks
-		foreach ($pks as $i => $pk)
-		{
-			$table->reset();
-			
-			if ($table->load($pk))
-			{
-				if (!$this->canEditState($table))
-				{
-					unset($pks[$i]);
-					
-					JLog::add(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'), JLog::WARNING, 'jerror');
-					
-					return false;
-				}
-			}
-		}
-		
-		// Attempt to change the state of the records.
-		if (!$table->block($pks, $value))
-		{
-			$this->setError($table->getError());
-			
-			return false;
-		}
-		
-		$context = $this->option . '.' . $this->name;
-		
-		// Trigger the change state event.
-		$result = $dispatcher->trigger($this->event_change_state, array($context, $pks, $value));
-		
-		if (in_array(false, $result, true))
-		{
-			$this->setError($table->getError());
-			
-			return false;
-		}
-		
-		// Clear the component's cache
-		$this->cleanCache();
-		
-		return true;
-	}
-	
 	/**
 	 * Save
 	 *
@@ -149,6 +82,8 @@ class ClubModelMember extends JModelAdmin
 		$params	= JComponentHelper::getParams('com_club')->get('params', false);
 		if ($params)
 		{
+			// First check ownership!
+			
 			// Format: Lastname firstname
 			if (isset($params->nameformat) && $params->nameformat == 1 && isset($data['com_fields']))
 			{
@@ -174,33 +109,14 @@ class ClubModelMember extends JModelAdmin
 					$data['name'] = implode(' ', $name);
 			}
 		}
+		
+		// Check the name
+		if (empty($data['name']))
+		{
+			$app->enqueueMessage('Empty name', 'error');
+			return false;
+		}
 
 		return parent::save($data);
-	}
-	
-	/**
-	 * Method to test whether a record can be deleted.
-	 *
-	 * @param   object  $record  A record object.
-	 *
-	 * @return  boolean  True if allowed to delete the record. Defaults to the permission for the component.
-	 */
-	protected function canDelete($record)
-	{
-		$user = JFactory::getUser();
-		return $user->authorise('member.delete', $this->option);
-	}
-	
-	/**
-	 * Method to test whether a record can be edited.
-	 *
-	 * @param   object  $record  A record object.
-	 *
-	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission for the component.
-	 */
-	protected function canEditState($record)
-	{
-		$user = JFactory::getUser();
-		return $user->authorise('member.edit.state', $this->option);
 	}
 }

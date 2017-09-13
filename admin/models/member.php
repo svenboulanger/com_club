@@ -167,7 +167,7 @@ class ClubModelMember extends JModelAdmin
 		}
 
 		// Check name property
-		if (empty($data['name']))
+		if (ctype_space($data['name']) || $data['name'] == '')
 		{
 			$app->enqueueMessage(JText::_('COM_CLUB_NO_NAME'), 'error');
 			return false;

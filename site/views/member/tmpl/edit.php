@@ -5,12 +5,26 @@ $app = JFactory::getApplication();
 $input = $app->input;
 
 // Much is taken from the article edit page
+JHtml::_('behavior.tabstate');
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.formvalidator');
 JHtml::_('formbehavior.chosen', 'select');
 
 // Get the fieldsets (custom fields)
 $fieldsets = $this->form->getFieldsets();
+
+$this->document->addScriptDeclaration("
+	(function($){
+		$(document).ready(function () {
+			// Patches to fix some wrong render of chosen fields
+			$('.chzn-container, .chzn-drop, .chzn-choices .search-field input').each(function (index) {
+				$(this).css({
+					'width': 'auto'
+				});
+			});
+		});
+	})(jQuery);
+");
 
 // These fieldsets are treated differently
 unset($fieldsets['memberdetails']);
