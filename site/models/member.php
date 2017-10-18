@@ -79,41 +79,61 @@ class ClubModelMember extends JModelAdmin
 	{
 		// Calculate the name if specified in the options
 		$app	= JFactory::getApplication();
+		$user   = JFactory::getUser();
 		$params	= JComponentHelper::getParams('com_club')->get('params', false);
+		
 		if ($params)
 		{
+			$model = ClubHelper::getFieldModel();
+			
 			// First check ownership!
+			if (isset($params->owner) && isset($data['id']))
+			{
+				if (is_integer($data['id']))
+				{
+					$owner = $model->getFieldValue($params->owner, $data['id']);
+					if ($owner != $user->id)
+					{
+						$app->enqueueMessage(JText::_('JERROR_NO_AUTHOR'), 'error');
+						return false;
+					}
+				}
+				else
+					$app->enqueueMessage('Invalid ID');
+			}
+			else
+			{
+				$app->enqueueMessage(JText::_('JERROR_NO_AUTHOR'), 'error');
+				return false;
+			}
 			
 			// Format: Lastname firstname
 			if (isset($params->nameformat) && $params->nameformat == 1 && isset($data['com_fields']))
 			{
 				$name = array();
-				$model = ClubHelper::getFieldModel();
-				
+
 				// Append last name
-				if (isset($params->lastname))
+				if (isset($params->lastname) && isset($params->firstname))
 				{
+					// Extract the lastname
 					$field = $model->getItem($params->lastname);
-					$name[] = $data['com_fields'][$field->name];
-				}
-				
-				// Append first name
-				if (isset($params->firstname))
-				{
+					if (isset($data['com_fields'][$field->name]))
+						$name[] = $data['com_fields'][$field->name];
+					
+					// Extract the firstname
 					$field = $model->getItem($params->firstname);
-					$name[] = $data['com_fields'][$field->name];
+					if (isset($data['com_fields'][$field->name]))
+						$name[] = $data['com_fields'][$field->name];
 				}
-				
+
 				// Update the field if we have both first and last name
 				if (count($name) == 2)
 					$data['name'] = implode(' ', $name);
 			}
 		}
-		
-		// Check the name
-		if (empty($data['name']))
+		else
 		{
-			$app->enqueueMessage('Empty name', 'error');
+			$app->enqueueMessage('No parameters', 'error');
 			return false;
 		}
 

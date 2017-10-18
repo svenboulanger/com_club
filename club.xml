@@ -7,7 +7,7 @@
 	<authorUrl>https://github.com/svenboulanger/com_club</authorUrl>
 	<creationDate>September 2017</creationDate>
 	<authorEmail>sven@bamadi.be</authorEmail>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<description>COM_CLUB_DESCRIPTION</description>
 	
 	<!-- Script -->
@@ -32,7 +32,6 @@
 	
 	<!-- Updateserver definition -->
 	<updateservers>
-		<!-- Note: No spaces or linebreaks allowed between the server tags -->
 		<server type="extension" name="Club manager Update Site">https://raw.githubusercontent.com/svenboulanger/com_club/master/club-updates.xml</server>
 	</updateservers>
 
