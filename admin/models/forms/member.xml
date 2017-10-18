@@ -15,7 +15,6 @@
 				size="256"
 				maxlength="256"
 				class="form-control"
-				required="true"
 				default="" />
 
 			<field

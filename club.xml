@@ -7,7 +7,7 @@
 	<authorUrl>https://github.com/svenboulanger/com_club</authorUrl>
 	<creationDate>September 2017</creationDate>
 	<authorEmail>sven@bamadi.be</authorEmail>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 	<description>COM_CLUB_DESCRIPTION</description>
 	
 	<!-- Script -->
@@ -72,6 +72,8 @@
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB/en-GB.com_club.ini</language>
 			<language tag="en-GB">en-GB/en-GB.com_club.sys.ini</language>
+			<language tag="nl-NL">nl-NL/nl-NL.com_club.ini</language>
+			<language tag="nl-NL">nl-NL/nl-NL.com_club.sys.ini</language>
 		</languages>
 	</administration>
 </extension>

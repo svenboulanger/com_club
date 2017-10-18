@@ -149,7 +149,7 @@ class ClubControllerMembers extends JControllerAdmin
 						->select('COUNT(*)')
 						->from('#__club_members')
 						->where($db->qn('id') . '=' . $db->q($item['id']));
-					if (!$db->setQuery($query)->getResult())
+					if (!$db->setQuery($query)->loadResult())
 						unset($item['id']);
 				}
 				else
