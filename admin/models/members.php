@@ -199,6 +199,21 @@ class ClubModelMembers extends JModelList
 	}
 	
 	/**
+	 * Get a form for emailing club members
+	 *
+	 * @param array		$data		The data
+	 * @param boolean	$loadData	True if data should be loaded
+	 *
+	 * @return JForm				The filter form
+	 */
+	public function getEmailForm($data = array(), $loadData = true)
+	{
+		// Make the form first
+		$form = $this->loadForm($this->context . '.email', 'email', array('control' => '', 'load_data' => $loadData));
+		return $form;
+	}
+	
+	/**
 	 * Get all non-empty unique values
 	 */
 	public function getInfoFields()

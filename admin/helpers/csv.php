@@ -145,6 +145,7 @@ class CsvHelper
 		$value = str_replace('"', '""', $value);
 		if ($strict)
 			return '="' . $value . '"';
-		return $value;
+		// return $value;
+		return iconv('UTF-8', 'windows-1252', $value);
 	}
 }

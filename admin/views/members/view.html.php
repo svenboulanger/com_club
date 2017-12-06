@@ -26,6 +26,7 @@ class ClubViewMembers extends JViewLegacy
 		$this->filterForm 		= $this->get('FilterForm');
 		$this->activeFilters 	= $this->get('ActiveFilters');
 		$this->infoFields		= $this->get('InfoFields');
+		$this->emailForm		= $this->get('EmailForm');
 		
 		// Add the sidebar
 		ClubHelper::addSubmenu('members');
@@ -51,7 +52,7 @@ class ClubViewMembers extends JViewLegacy
 		$this->infoDisplay = array_reverse($this->infoDisplay);
 		
 		// Set the toolbar
-		$this->addToolBar();
+		$this->addToolBar($tpl);
 		parent::display($tpl);
 		$this->setDocument();
 	}
@@ -61,7 +62,6 @@ class ClubViewMembers extends JViewLegacy
 	 */
 	protected function addToolBar()
 	{
-		
 		// Initialize
 		$user = JFactory::getUser();
 		$canDo = JHelperContent::getActions('com_club', 'members', null);
@@ -70,27 +70,39 @@ class ClubViewMembers extends JViewLegacy
 		$title = JText::_('COM_CLUB_MEMBERS');
 		JToolBarHelper::title($title);
 		
-		// Add items depending on authorization
-		if ($canDo->get('core.create', 'com_club'))
+		if ($this->getLayout() !== 'email')
 		{
-			JToolBarHelper::addNew('member.add');
+			// Add items depending on authorization
+			if ($canDo->get('core.create', 'com_club'))
+			{
+				JToolBarHelper::addNew('member.add');
+			}
+			if ($canDo->get('core.edit', 'com_club'))
+			{
+				JToolBarHelper::editList('member.edit');
+			}
+			if ($canDo->get('core.delete', 'com_club'))
+			{
+				JToolBarHelper::deleteList(JText::_('COM_CLUB_MEMBERS_DELETE_ASK'), 'members.delete');
+			}
+			if ($canDo->get('core.edit.state', 'com_club'))
+			{
+				JToolBarHelper::custom('members.allow', 'ok', '', 'COM_CLUB_ALLOW', true);
+				JToolBarHelper::custom('members.block', 'not-ok', '', 'COM_CLUB_BLOCK', true);
+			}
+			JToolBarHelper::link(
+				JRoute::_('index.php?option=com_club&view=members&format=csv'),
+				JText::_('COM_CLUB_DOWNLOAD'), 'download');
+			JToolBarHelper::link(
+				JRoute::_('index.php?option=com_club&view=members&layout=email'),
+				JText::_('COM_CLUB_EMAIL'), 'envelope');
 		}
-		if ($canDo->get('core.edit', 'com_club'))
+		else
 		{
-			JToolBarHelper::editList('member.edit');
+			JToolBarHelper::link(
+				JRoute::_('index.php?option=com_club&view=members'),
+				JText::_('COM_CLUB_MEMBERS'), 'user');
 		}
-		if ($canDo->get('core.delete', 'com_club'))
-		{
-			JToolBarHelper::deleteList(JText::_('COM_CLUB_MEMBERS_DELETE_ASK'), 'members.delete');
-		}
-		if ($canDo->get('core.edit.state', 'com_club'))
-		{
-			JToolBarHelper::custom('members.allow', 'ok', '', 'COM_CLUB_ALLOW', true);
-			JToolBarHelper::custom('members.block', 'not-ok', '', 'COM_CLUB_BLOCK', true);
-		}
-		JToolBarHelper::link(
-			JRoute::_('index.php?option=com_club&view=members&format=csv'),
-			JText::_('COM_CLUB_DOWNLOAD'), 'download');
 	}
 
 	/**

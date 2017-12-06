@@ -103,6 +103,89 @@ class ClubControllerMembers extends JControllerAdmin
 	}
 	
 	/**
+	 * Email our players
+	 */
+	public function email()
+	{
+		// Check for request forgeries
+		JSession::checkToken() or die(JText::_('JINVALID_TOKEN'));
+		
+		// Initialize
+		$app 	= JFactory::getApplication();
+		$user 	= JFactory::getUser();
+		$mailer	= JFactory::getMailer();
+		$config	= JFactory::getConfig();
+		$sender = array(
+			$config->get('mailfrom'),
+			$user->name
+			);
+		$mailer->setSender($user->name);
+		
+		// Get members to send an email
+		$model = $this->getModel('Members', 'ClubModel', array('ignore_request' => true));
+		$model->setState('list.start', 0);
+		$model->setState('list.limit', 0);
+		$items = $model->getItems();
+		if (!$items)
+		{
+			// Redirect to list
+			$this->setMessage(JText::sprintf('COM_CLUB_EMAIL_NORECIPIENT'));
+			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
+			return;
+		}
+		
+		// Create a unique list of emails
+		$emails = array();
+		foreach ($items as $member)
+		{
+			$email = trim($member->email);
+			if (filter_var($email, FILTER_VALIDATE_EMAIL))
+				$emails[] = $email;
+		}
+		$emails = array_unique($emails);
+		
+		// Send emails
+		if (!empty($emails))
+		{
+			$mailer->addRecipient($emails);
+			
+			// Get the email contents
+			$subject = $app->input->get('subject', false);
+			$body = $app->input->get('body', false);
+			if (empty($subject) || empty($body))
+			{
+				$this->setMessage(JText::_('COM_CLUB_EMAIL_NOCONTENT'), 'error');
+				$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . '&layout=email', false));
+				return;
+			}
+			
+			// Send mails
+			$mailer->setSubject($subject);
+			$mailer->setBody($body);
+			$response = $mailer->Send();
+			if ($response !== true)
+			{
+				$this->setMessage(JText::_('COM_CLUB_EMAIL_FAILED'), 'error');
+				$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
+				return;
+			}
+			else
+			{
+				// Message sent
+				$this->setMessage(JText::sprintf('COM_CLUB_EMAIL_SENT', count($emails)));
+			}
+		}
+		else
+		{
+			// No messages sent
+			$this->setMessage(JText::sprintf('COM_CLUB_EMAIL_NORECIPIENT'));
+		}
+
+		// Redirect to list
+		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
+	}
+	
+	/**
 	 * Import members from a CSV file
 	 */
 	public function import()

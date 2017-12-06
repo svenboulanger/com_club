@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields>
+		<fieldset
+			name="email"
+			label="COM_CLUB_EMAIL">
+			<field name="id" type="hidden" />
+			
+			<field
+				name="subject"
+				type="text"
+				label="COM_CLUB_EMAIL_SUBJECT"
+				description="COM_CLUB_EMAIL_SUBJECT_DESC"
+				size="256"
+				maxlength="256"
+				class="form-control"
+				default="" />
+				
+			<field
+				name="body"
+				type="editor"
+				label="COM_CLUB_EMAIL_BODY"
+				description="COM_CLUB_EMAIL_BODY_DESC"
+				/>
+		</fieldset>
+	</fields>
+</form>
