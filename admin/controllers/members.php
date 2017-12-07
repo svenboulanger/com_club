@@ -122,7 +122,7 @@ class ClubControllerMembers extends JControllerAdmin
 		$mailer->setSender($user->name);
 		
 		// Get members to send an email
-		$model = $this->getModel('Members', 'ClubModel', array('ignore_request' => true));
+		$model = $this->getModel('Members', 'ClubModel', array('ignore_request' => false));
 		$model->setState('list.start', 0);
 		$model->setState('list.limit', 0);
 		$items = $model->getItems();
@@ -143,6 +143,7 @@ class ClubControllerMembers extends JControllerAdmin
 				$emails[] = $email;
 		}
 		$emails = array_unique($emails);
+
 		
 		// Send emails
 		if (!empty($emails))
@@ -150,17 +151,18 @@ class ClubControllerMembers extends JControllerAdmin
 			$mailer->addRecipient($emails);
 			
 			// Get the email contents
-			$subject = $app->input->get('subject', false);
-			$body = $app->input->get('body', false);
+			$subject = $app->input->get('subject', false, 'string');
+			$body = $app->input->get('body', false, 'raw');
 			if (empty($subject) || empty($body))
 			{
 				$this->setMessage(JText::_('COM_CLUB_EMAIL_NOCONTENT'), 'error');
 				$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . '&layout=email', false));
 				return;
 			}
-			
+
 			// Send mails
 			$mailer->setSubject($subject);
+			$mailer->isHtml(true);
 			$mailer->setBody($body);
 			$response = $mailer->Send();
 			if ($response !== true)
