@@ -165,6 +165,8 @@ class ClubModelMember extends JModelAdmin
 				// Update the field if we have both first and last name
 				if (count($name) == 2)
 					$data['name'] = implode(' ', $name);
+				else
+					unset($data['name']);
 			}
 		}
 		else
@@ -174,7 +176,7 @@ class ClubModelMember extends JModelAdmin
 		}
 
 		// Check name property
-		if (ctype_space($data['name']) || $data['name'] == '')
+		if (isset($data['name']) && (ctype_space($data['name']) || $data['name'] == ''))
 		{
 			$app->enqueueMessage(JText::_('COM_CLUB_NO_NAME'), 'error');
 			return false;
