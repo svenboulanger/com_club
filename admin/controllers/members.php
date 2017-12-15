@@ -123,8 +123,10 @@ class ClubControllerMembers extends JControllerAdmin
 		
 		// Get members to send an email
 		$model = $this->getModel('Members', 'ClubModel', array('ignore_request' => false));
-		$model->setState('list.start', 0);
-		$model->setState('list.limit', 0);
+		if ($model->getState('list.start') != 0)
+			$model->setState('list.start', 0);
+		if ($model->getState('list.limit') != 0)
+			$model->setState('list.limit', 0);
 		$items = $model->getItems();
 		if (!$items)
 		{
@@ -143,7 +145,7 @@ class ClubControllerMembers extends JControllerAdmin
 				$emails[] = $email;
 		}
 		$emails = array_unique($emails);
-
+		$app->enqueueMessage('Emails: ' . count($emails));
 		
 		// Send emails
 		if (!empty($emails))
