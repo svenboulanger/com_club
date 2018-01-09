@@ -81,30 +81,39 @@ class ClubModelMember extends JModelAdmin
 		$app	= JFactory::getApplication();
 		$user   = JFactory::getUser();
 		$params	= JComponentHelper::getParams('com_club')->get('params', false);
-		
+		$isnew  = false;
+
 		if ($params)
 		{
 			$model = ClubHelper::getFieldModel();
 			
 			// First check ownership!
-			if (isset($params->owner) && isset($data['id']))
+			if (!empty($data['id']))
 			{
-				if (is_integer($data['id']))
+				if (isset($params->owner))
 				{
-					$owner = $model->getFieldValue($params->owner, $data['id']);
-					if ($owner != $user->id)
+					if (is_integer($data['id']))
 					{
-						$app->enqueueMessage(JText::_('JERROR_NO_AUTHOR'), 'error');
-						return false;
+						$owner = $model->getFieldValue($params->owner, $data['id']);
+						if ($owner != $user->id)
+						{
+							$app->enqueueMessage(JText::_('JERROR_NO_AUTHOR'), 'error');
+							return false;
+						}
 					}
+					else
+						$app->enqueueMessage('Invalid ID');
 				}
 				else
-					$app->enqueueMessage('Invalid ID');
+				{
+					$app->enqueueMessage(JText::_('JERROR_NO_AUTHOR'), 'error');
+					return false;
+				}
 			}
 			else
 			{
-				$app->enqueueMessage(JText::_('JERROR_NO_AUTHOR'), 'error');
-				return false;
+				// Flag the member as a new member
+				$isnew = true;
 			}
 			
 			// Format: Lastname firstname
@@ -137,6 +146,51 @@ class ClubModelMember extends JModelAdmin
 			return false;
 		}
 
-		return parent::save($data);
+		$success = parent::save($data);
+		
+		// Send email
+		if ($success && $isnew)
+		{
+			// Send email for new members
+			$mailer = JFactory::getMailer();
+			
+			// Set sender
+			$config = JFactory::getConfig();
+			$sender = array( 
+				$config->get( 'mailfrom' ),
+				$config->get( 'fromname' ) 
+			);
+			$mailer->setSender($sender);
+
+			// Set recipient(s)
+			if (empty($params->registrationrecipients))
+			{
+				return $success;
+			}
+			$recipients = explode(';', $params->registrationrecipients);
+			foreach ($recipients as $recipient)
+			{
+				$mailer->addRecipient(trim($recipient));
+			}
+			
+			// Set subject
+			$mailer->setSubject(JText::_('COM_CLUB_NEWMEMBER_SUBJECT'));
+			
+			// Set body
+			$mailer->isHtml(true);
+			if (empty($params->registrationbody))
+			{
+				return $success;
+			}
+			$body = $params->registrationbody;
+			$body = str_replace('#user#', $user->name, $body);
+			$body = str_replace('#member#', $data['name'], $body);
+			$mailer->setBody($body);
+			
+			// Send mailer
+			$mailer->Send();
+		}
+		
+		return $success;
 	}
 }

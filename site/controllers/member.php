@@ -33,6 +33,13 @@ class ClubControllerMember extends JControllerForm
 				}
 			}
 		}
+		else
+		{
+			if ($user->authorise('core.create', 'com_club') || count($user->getAuthorisedCategories('com_club', 'core.create')))
+			{
+				return true;
+			}
+		}
 		
 		// Fall back to parent implementation
 		return parent::allowEdit();

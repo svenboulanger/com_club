@@ -40,6 +40,19 @@
 				context="com_club.member"
 				label="COM_CLUB_PARAMS_OWNER_LABEL"
 				description="COM_CLUB_PARAMS_OWNER_DESC" />
+				
+			<field
+				name="registrationrecipients"
+				type="text"
+				label="COM_CLUB_PARAMS_REGISTRATION_RECIPIENTS"
+				description="COM_CLUB_PARAMS_REGISTRATION_RECIPIENTS_DESC" />
+				
+			<field
+				name="registrationbody"
+				type="editor"
+				label="COM_CLUB_PARAMS_REGISTRATION_BODY"
+				filter="raw"
+				description="COM_CLUB_PARAMS_REGISTRATION_BODY_DESC" />
 		</fieldset>
 	</fields>
 
