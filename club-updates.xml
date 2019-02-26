@@ -5,7 +5,7 @@
 		<description>COM_CLUB_DESCRIPTION</description>
 		<element>com_club</element>
 		<type>component</type>
-		<version>1.2.2</version>
+		<version>1.4.0</version>
 		<client>1</client>
 		<folder></folder>
 		<infourl title="Club Manager">https://github.com/svenboulanger/com_club</infourl>
